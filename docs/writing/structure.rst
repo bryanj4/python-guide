@@ -147,7 +147,7 @@ Requirements File
 
 
 A `pip requirements
-file <http://www.pip-installer.org/en/latest/requirements.html>`__
+file <https://pip.pypa.io/en/stable/user_guide/#requirements-files>`__
 should be placed at the root of the repository. It should specify the
 dependencies required to contribute to the project: testing, building,
 and generating documentation.
@@ -658,8 +658,10 @@ And now the generator approach using Python's own
     @contextmanager
     def custom_open(filename):
         f = open(filename)
-        yield f
-        f.close()
+        try:
+            yield f
+        finally:
+            f.close()
 
     with custom_open('file') as f:
         contents = f.read()
@@ -667,7 +669,9 @@ And now the generator approach using Python's own
 This works in exactly the same way as the class example above, albeit it's
 more terse. The ``custom_open`` function executes until it reaches the ``yield``
 statement. It then gives control back to the ``with`` statement, which assigns
-whatever was ``yield``'ed to `f` in the ``as f`` portion.
+whatever was ``yield``'ed to `f` in the ``as f`` portion. The ``finally`` clause
+ensures that ``close()`` is called whether or not there was an exception inside
+the ``with``.
 
 Since the two approaches appear the same, we should follow the Zen of Python
 to decide when to use which. The class approach might be better if there's
