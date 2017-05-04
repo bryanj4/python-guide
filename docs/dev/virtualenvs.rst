@@ -8,21 +8,27 @@ projects in separate places, by creating virtual Python environments for them.
 It solves the "Project X depends on version 1.x but, Project Y needs 4.x"
 dilemma, and keeps your global site-packages directory clean and manageable.
 
-For example, you can work on a project which requires Django 1.3 while also
-maintaining a project which requires Django 1.0.
+For example, you can work on a project which requires Django 1.10 while also
+maintaining a project which requires Django 1.8.
 
 virtualenv
 ----------
 
 `virtualenv <http://pypi.python.org/pypi/virtualenv>`_ is a tool to create
-isolated Python environments. virtualenv creates a folder which contains all the 
-necessary executables to use the packages that a Python project would need. 
+isolated Python environments. virtualenv creates a folder which contains all the
+necessary executables to use the packages that a Python project would need.
 
 Install virtualenv via pip:
 
 .. code-block:: console
 
   $ pip install virtualenv
+ 
+Test your installation
+
+.. code-block:: console
+
+   $ virtualenv --version
 
 Basic Usage
 ~~~~~~~~~~~
@@ -32,35 +38,40 @@ Basic Usage
 .. code-block:: console
 
    $ cd my_project_folder
-   $ virtualenv venv
+   $ virtualenv my_project
 
-``virtualenv venv`` will create a folder in the current directory which will
+``virtualenv my_project`` will create a folder in the current directory which will
 contain the Python executable files, and a copy of the ``pip`` library which you
 can use to install other packages. The name of the virtual environment (in this
-case, it was ``venv``) can be anything; omitting the name will place the files
+case, it was ``my_project``) can be anything; omitting the name will place the files
 in the current directory instead.
 
 This creates a copy of Python in whichever directory you ran the command in,
-placing it in a folder named :file:`venv`.
+placing it in a folder named :file:`my_project`.
 
-You can also use a Python interpreter of your choice.
+You can also use the Python interpreter of your choice (like
+``python2.7``).
 
 .. code-block:: console
 
-   $ virtualenv -p /usr/bin/python2.7 venv
+   $ virtualenv -p /usr/bin/python2.7 my_project
 
-This will use the Python interpreter in :file:`/usr/bin/python2.7`
+or change the interpreter globally with an env variable in ``~/.bashrc``:
+
+.. code-block:: console
+
+   $ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
 
 2. To begin using the virtual environment, it needs to be activated:
 
 .. code-block:: console
 
-   $ source venv/bin/activate
+   $ source my_project/bin/activate
 
-The name of the current virtual environment will now appear on the left of 
-the prompt (e.g. ``(venv)Your-Computer:your_project UserName$)`` to let you know 
-that it's active. From now on, any package that you install using pip will be 
-placed in the ``venv`` folder, isolated from the global Python installation.
+The name of the current virtual environment will now appear on the left of
+the prompt (e.g. ``(my_project)Your-Computer:your_project UserName$)`` to let you know
+that it's active. From now on, any package that you install using pip will be
+placed in the ``my_project`` folder, isolated from the global Python installation.
 
 Install packages as usual, for example:
 
@@ -78,8 +89,8 @@ Install packages as usual, for example:
 This puts you back to the system's default Python interpreter with all its
 installed libraries.
 
-To delete a virtual environment, just delete its folder. (In this case, 
-it would be ``rm -rf venv``.)
+To delete a virtual environment, just delete its folder. (In this case,
+it would be ``rm -rf my_project``.)
 
 After a while, though, you might end up with a lot of virtual environments
 littered across your system, and its possible you'll forget their names or
@@ -88,7 +99,7 @@ where they were placed.
 Other Notes
 ~~~~~~~~~~~
 
-Running ``virtualenv`` with the option :option:`--no-site-packages` will not
+Running ``virtualenv`` with the option ``--no-site-packages`` will not
 include the packages that are installed globally. This can be useful
 for keeping the package list clean in case it needs to be accessed later.
 [This is the default behavior for ``virtualenv`` 1.7 and later.]
@@ -102,8 +113,8 @@ the current state of the environment packages. To do this, run
 
 This will create a :file:`requirements.txt` file, which contains a simple
 list of all the packages in the current environment, and their respective
-versions. You can see the list of installed packages without the requirements 
-format using "pip list". Later it will be easier for a different developer 
+versions. You can see the list of installed packages without the requirements
+format using "pip list". Later it will be easier for a different developer
 (or you, if you need to re-create the environment) to install the same packages
 using the same versions:
 
@@ -122,7 +133,7 @@ control by adding it to the ignore list.
 virtualenvwrapper
 -----------------
 
-`virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/en/latest/index.html>`_
+`virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/index.html>`_
 provides a set of commands which makes working with virtual environments much
 more pleasant. It also places all your virtual environments in one place.
 
@@ -134,7 +145,7 @@ To install (make sure **virtualenv** is already installed):
   $ export WORKON_HOME=~/Envs
   $ source /usr/local/bin/virtualenvwrapper.sh
 
-(`Full virtualenvwrapper install instructions <http://virtualenvwrapper.readthedocs.org/en/latest/install.html>`_.)
+(`Full virtualenvwrapper install instructions <https://virtualenvwrapper.readthedocs.io/en/latest/install.html>`_.)
 
 For Windows, you can use the `virtualenvwrapper-win <https://github.com/davidmarble/virtualenvwrapper-win/>`_.
 
@@ -143,7 +154,7 @@ To install (make sure **virtualenv** is already installed):
 .. code-block:: console
 
   $ pip install virtualenvwrapper-win
-  
+
 In Windows, the default path for WORKON_HOME is %USERPROFILE%\Envs
 
 Basic Usage
@@ -153,15 +164,15 @@ Basic Usage
 
 .. code-block:: console
 
-   $ mkvirtualenv venv
+   $ mkvirtualenv my_project
 
-This creates the :file:`venv` folder inside :file:`~/Envs`.
+This creates the :file:`my_project` folder inside :file:`~/Envs`.
 
 2. Work on a virtual environment:
 
 .. code-block:: console
 
-   $ workon venv
+   $ workon my_project
 
 Alternatively, you can make a project, which creates the virtual environment,
 and also a project directory inside ``$PROJECT_HOME``, which is ``cd`` -ed into
@@ -206,7 +217,7 @@ Other useful commands
 ``lssitepackages``
   Shows contents of :file:`site-packages` directory.
 
-`Full list of virtualenvwrapper commands <http://virtualenvwrapper.readthedocs.org/en/latest/command_ref.html>`_.
+`Full list of virtualenvwrapper commands <https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html>`_.
 
 virtualenv-burrito
 ------------------

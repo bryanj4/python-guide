@@ -76,6 +76,7 @@ signal that no argument was provided (:py:data:`None` is often a good choice).
         to.append(element)
         return to
 
+Do not forget, you are passing a *list* object as the second argument.
 
 When the Gotcha Isn't a Gotcha
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -224,7 +225,7 @@ Removing Bytecode (.pyc) Files
 
 Here's nice trick for removing all of these files, if they already exist::
 
-    $ find . -name "*.pyc" -exec rm -rf {} \;
+    $ find . -type f -name "*.py[co]" -delete -or -type d -name "__pycache__" -delete
 
 Run that from the root directory of your project, and all ``.pyc`` files
 will suddenly vanish. Much better.

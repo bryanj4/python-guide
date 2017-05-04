@@ -200,7 +200,7 @@ it. You can do this a few ways:
    package properly.
 
 I highly recommend the latter. Requiring a developer to run
-`setup.py <http://setup.py>`__ develop to test an actively changing
+``setup.py develop`` to test an actively changing
 codebase also requires them to have an isolated environment setup for
 each instance of the codebase.
 
@@ -211,7 +211,7 @@ file:
 
     import os
     import sys
-    sys.path.insert(0, os.path.abspath('..'))
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
     import sample
 
@@ -254,6 +254,8 @@ your project.
     test:
         py.test tests
 
+    .PHONY: init test
+
 Other generic management scripts (e.g. ``manage.py``
 or ``fabfile.py``) belong at the root of the repository as well.
 
@@ -269,7 +271,7 @@ following, as they always have:
 
 ::
 
-    $ django-admin.py start-project samplesite
+    $ django-admin.py startproject samplesite
 
 The resulting repository structure looks like this:
 
@@ -291,7 +293,7 @@ Let's do it properly:
 
 ::
 
-    $ django-admin.py start-project samplesite .
+    $ django-admin.py startproject samplesite .
 
 Note the "``.``".
 
@@ -600,7 +602,7 @@ clearer and thus preferred.
 This mechanism is useful for separating concerns and avoiding
 external un-related logic 'polluting' the core logic of the function
 or method. A good example of a piece of functionality that is better handled
-with decoration is memoization or caching: you want to store the results of an
+with decoration is `memoization <https://en.wikipedia.org/wiki/Memoization#Overview>`__ or caching: you want to store the results of an
 expensive function in a table and use them directly instead of recomputing
 them when they have already been computed. This is clearly not part
 of the function logic.
@@ -631,7 +633,7 @@ with the class approach:
 
     class CustomOpen(object):
         def __init__(self, filename):
-          self.file = open(filename)
+            self.file = open(filename)
 
         def __enter__(self):
             return self.file
@@ -783,7 +785,12 @@ its parts, it is much more efficient to accumulate the parts in a list,
 which is mutable, and then glue ('join') the parts together when the
 full string is needed. One thing to notice, however, is that list
 comprehensions are better and faster than constructing a list in a loop
-with calls to ``append()``.
+with calls to ``append()``. 
+
+One other option is using the map function, which can 'map' a function
+('str') to an iterable ('range(20)'). This results in a map object,
+which you can then ('join') together just like the other examples.
+The map function can be even faster than a list comprehension in some cases.
 
 **Bad**
 
@@ -805,13 +812,21 @@ with calls to ``append()``.
       nums.append(str(n))
     print "".join(nums)  # much more efficient
 
-**Best**
+**Better**
 
 .. code-block:: python
 
     # create a concatenated string from 0 to 19 (e.g. "012..1819")
     nums = [str(n) for n in range(20)]
     print "".join(nums)
+    
+**Best**
+
+.. code-block:: python
+
+    # create a concatenated string from 0 to 19 (e.g. "012..1819")
+    nums = map(str, range(20))
+    print "".join(nums) 
 
 One final thing to mention about strings is that using ``join()`` is not always
 best. In the instances where you are creating a new string from a pre-determined

@@ -14,6 +14,9 @@ New to Python? Let's properly setup up your Python environment.
     :maxdepth: 1
 
     starting/installation
+    starting/install3/osx
+    starting/install3/win
+    starting/install3/linux
     starting/install/osx
     starting/install/win
     starting/install/linux
@@ -64,6 +67,7 @@ different scenarios.
    scenarios/xml
    scenarios/json
    scenarios/crypto
+   scenarios/ml
    scenarios/clibs
 
 

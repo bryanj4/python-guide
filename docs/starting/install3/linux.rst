@@ -1,31 +1,43 @@
-.. _install-linux:
+.. _install3-linux:
 
-Installing Python 2 on Linux
+Installing Python 3 on Linux
 ============================
 
-The latest versions of CentOS, Fedora, Redhat Enterprise (RHEL) and Ubuntu
-**come with Python 2.7 out of the box**.
+This document describes how to install Python 3.6 on Ubuntu Linux machines.
 
-To see which version of Python you have installed, open a command prompt and run
+To see which version of Python 3 you have installed, open a command prompt and run
 
 .. code-block:: console
 
-    $ python --version
+    $ python3 --version
 
-Some older versions of RHEL and CentOS come with Python 2.4 which is
-unacceptable for modern Python development. Fortunately, there are
-`Extra Packages for Enterprise Linux`_ which include high
-quality additional packages based on their Fedora counterparts. This
-repository contains a Python 2.6 package specifically designed to install
-side-by-side with the system's Python 2.4 installation.
+If you are using Ubuntu 16.10 or newer, then you can easily install Python 3.6 with the following commands::
 
-.. _Extra Packages for Enterprise Linux: http://fedoraproject.org/wiki/EPEL
+    $ sudo apt-get update
+    $ sudo apt-get install python3.6
 
-You do not need to install or configure anything else to use Python. Having
-said that, I would strongly recommend that you install the tools and libraries
-described in the next section before you start building Python applications
-for real-world use. In particular, you should always install Setuptools and pip, as
-it makes it much easier for you to use other third-party Python libraries.
+If you're using another version of Ubuntu (e.g. the latest LTS release), we recommend using the `deadsnakes PPA <https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes>`_ to install Python 3.6::
+
+    $ sudo add-apt-repository ppa:fkrull/deadsnakes
+    $ sudo apt-get update
+    $ sudo apt-get install python3.6
+
+Working with Python 3
+---------------------
+
+At this point, you may have system Python 2.7 available as well.
+
+.. code-block:: console
+
+    $ python
+
+This will launch the Python 2 interpreter.
+
+.. code-block:: console
+
+    $ python3
+
+This will launch the Python 3 interpreter.
 
 Setuptools & Pip
 ----------------
@@ -62,6 +74,7 @@ To start using this and see more information: :ref:`Virtual Environments <virtua
 
 You can also use :ref:`virtualenvwrapper <virtualenvwrapper-ref>` to make it easier to
 manage your virtual environments.
+
 
 --------------------------------
 

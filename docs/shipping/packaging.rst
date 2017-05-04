@@ -25,7 +25,7 @@ and being able and willing to use tools such as pip to install your code's
 other dependencies. This is fine when distributing to other developers, but
 makes this method unsuitable for distributing applications to end-users.
 
-The `Python Packaging Guide <https://python-packaging-user-guide.readthedocs.org/en/latest/>`_
+The `Python Packaging Guide <https://python-packaging-user-guide.readthedocs.io/>`_
 provides an extensive guide on creating and maintaining Python packages.
 
 Alternatives to Packaging
@@ -101,7 +101,7 @@ pypiserver
 `Pypiserver <https://pypi.python.org/pypi/pypiserver>`_ is a minimal PyPI
 compatible server.  It can be used to serve a set of packages to easy_install
 or pip.  It includes helpful features like an administrative command
-(:option:`-U`) which will update all its packages to their latest versions
+(``-U``) which will update all its packages to their latest versions
 found on PyPI.
 
 
@@ -184,3 +184,4 @@ Useful Tools
 
 - `fpm <https://github.com/jordansissel/fpm>`_
 - `alien <http://joeyh.name/code/alien/>`_
+- `dh-virtualenv <https://dh-virtualenv.readthedocs.io/en/latest/info.html>`_ (for APT/DEB omnibus packaging)
